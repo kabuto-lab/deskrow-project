@@ -30,7 +30,7 @@ export default function Error({
         Try again
       </button>
       
-      <style jsx>{`
+      <style>{`
         .error-container {
           display: flex;
           flex-direction: column;
@@ -40,16 +40,16 @@ export default function Error({
           text-align: center;
           padding: 2rem;
         }
-        
+
         h2 {
           margin-bottom: 1rem;
         }
-        
+
         p {
           margin-bottom: 1rem;
           color: #e00;
         }
-        
+
         button {
           padding: 0.5rem 1rem;
           background: #0070f3;

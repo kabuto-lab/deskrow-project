@@ -82,35 +82,35 @@ export default function Home() {
         <p>© {new Date().getFullYear()} Deskrow. All rights reserved.</p>
       </footer>
 
-      <style jsx>{`
+      <style>{`
         .container {
           min-height: 100vh;
           display: flex;
           flex-direction: column;
         }
-        
+
         header {
           padding: 1rem 2rem;
           border-bottom: 1px solid #eaeaea;
         }
-        
+
         nav {
           display: flex;
           justify-content: space-between;
           align-items: center;
         }
-        
+
         .logo {
           font-size: 1.5rem;
           font-weight: bold;
         }
-        
+
         .nav-links {
           display: flex;
           gap: 1rem;
           align-items: center;
         }
-        
+
         .nav-links a, .nav-links button {
           text-decoration: none;
           padding: 0.5rem 1rem;
@@ -119,7 +119,7 @@ export default function Home() {
           background: #f0f0f0;
           cursor: pointer;
         }
-        
+
         .hero {
           padding: 4rem 2rem;
           text-align: center;
@@ -129,23 +129,23 @@ export default function Home() {
           justify-content: center;
           align-items: center;
         }
-        
+
         .hero h1 {
           font-size: 3rem;
           margin-bottom: 1rem;
         }
-        
+
         .hero p {
           font-size: 1.2rem;
           margin-bottom: 2rem;
           max-width: 600px;
         }
-        
+
         .cta-buttons {
           display: flex;
           gap: 1rem;
         }
-        
+
         .btn-primary {
           background: #0070f3;
           color: white;
@@ -153,7 +153,7 @@ export default function Home() {
           border-radius: 8px;
           text-decoration: none;
         }
-        
+
         .btn-secondary {
           background: #f0f0f0;
           color: #333;
@@ -161,7 +161,7 @@ export default function Home() {
           border-radius: 8px;
           text-decoration: none;
         }
-        
+
         .features {
           display: flex;
           justify-content: space-around;
@@ -169,12 +169,12 @@ export default function Home() {
           flex-wrap: wrap;
           gap: 2rem;
         }
-        
+
         .feature {
           max-width: 300px;
           text-align: center;
         }
-        
+
         footer {
           padding: 2rem;
           text-align: center;

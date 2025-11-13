@@ -83,40 +83,40 @@ export default function App() {
         </div>
       </main>
 
-      <style jsx>{`
+      <style>{`
         .app-container {
           min-height: 100vh;
           display: flex;
           flex-direction: column;
         }
-        
+
         header {
           padding: 1rem 2rem;
           border-bottom: 1px solid #eaeaea;
         }
-        
+
         nav {
           display: flex;
           justify-content: space-between;
           align-items: center;
         }
-        
+
         .logo {
           font-size: 1.5rem;
           font-weight: bold;
         }
-        
+
         .nav-links {
           display: flex;
           gap: 1.5rem;
           align-items: center;
         }
-        
+
         .nav-links a {
           text-decoration: none;
           color: #333;
         }
-        
+
         .logout-btn {
           background: #f0f0f0;
           border: none;
@@ -124,39 +124,39 @@ export default function App() {
           border-radius: 5px;
           cursor: pointer;
         }
-        
+
         .main-content {
           flex: 1;
           padding: 2rem;
         }
-        
+
         .dashboard h1 {
           margin-bottom: 1rem;
         }
-        
+
         .dashboard-cards {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
           gap: 1.5rem;
           margin-top: 2rem;
         }
-        
+
         .card {
           padding: 1.5rem;
           border: 1px solid #eaeaea;
           border-radius: 8px;
           text-align: center;
         }
-        
+
         .card h3 {
           margin-bottom: 0.5rem;
         }
-        
+
         .card p {
           font-size: 1.5rem;
           font-weight: bold;
         }
-        
+
         .loading {
           display: flex;
           justify-content: center;

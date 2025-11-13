@@ -150,7 +150,7 @@ export default function Auth() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .auth-container {
           display: flex;
           justify-content: center;
@@ -158,7 +158,7 @@ export default function Auth() {
           min-height: 100vh;
           padding: 1rem;
         }
-        
+
         .auth-form {
           width: 100%;
           max-width: 400px;
@@ -167,22 +167,22 @@ export default function Auth() {
           border-radius: 10px;
           background: white;
         }
-        
+
         h2 {
           text-align: center;
           margin-bottom: 1.5rem;
         }
-        
+
         .form-group {
           margin-bottom: 1rem;
         }
-        
+
         label {
           display: block;
           margin-bottom: 0.5rem;
           font-weight: 500;
         }
-        
+
         input {
           width: 100%;
           padding: 0.75rem;
@@ -190,12 +190,12 @@ export default function Auth() {
           border-radius: 5px;
           font-size: 1rem;
         }
-        
+
         input:focus {
           outline: none;
           border-color: #0070f3;
         }
-        
+
         .submit-btn {
           width: 100%;
           padding: 0.75rem;
@@ -206,17 +206,17 @@ export default function Auth() {
           font-size: 1rem;
           cursor: pointer;
         }
-        
+
         .submit-btn:disabled {
           background: #ccc;
           cursor: not-allowed;
         }
-        
+
         .auth-switch {
           margin-top: 1.5rem;
           text-align: center;
         }
-        
+
         .switch-btn {
           background: none;
           border: none;
@@ -226,7 +226,7 @@ export default function Auth() {
           padding: 0;
           font-size: 1rem;
         }
-        
+
         .error {
           color: #e00;
           padding: 0.5rem;

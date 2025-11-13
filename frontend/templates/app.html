@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DESKROW EXCHANGE</title>
+    <link rel="stylesheet" href="/static/css/radix-theme.css">
+    <script src="/static/js/theme-toggle.js"></script>
+    <style>
+        .sidebar-link {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--radix-colors-gray-12);
+            border-radius: 0.25rem;
+            transition: background-color 0.2s ease;
+        }
+        .sidebar-link:hover {
+            background-color: var(--radix-colors-gray-3);
+        }
+        .sidebar-link.signout {
+            color: var(--radix-colors-red-9);
+        }
+        .sidebar-link.signout:hover {
+            background-color: var(--radix-colors-red-3);
+        }
+        .modal {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+        .modal-content {
+            background-color: var(--radix-colors-gray-1);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            width: 24rem;
+            max-width: 90vw;
+        }
+        .modal-content.wide {
+            width: 50%;
+            max-width: 50rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>DESKROW</h2>
+            </div>
+            <nav class="p-4 space-y-2">
+                <a href="/app/new-transaction" class="sidebar-link">
+                    New Transaction
+                </a>
+                <a href="/app/transactions" class="sidebar-link">
+                    Transactions
+                </a>
+                <a href="/app/market" class="sidebar-link">
+                    Market
+                </a>
+                <a href="/app/offers" class="sidebar-link">
+                    Offers
+                </a>
+                <a href="/app/messages" class="sidebar-link">
+                    Messages
+                </a>
+                <a href="/app/profile" class="sidebar-link">
+                    Profile
+                </a>
+                <a href="/app/settings" class="sidebar-link">
+                    Settings
+                </a>
+                <a href="/auth/signout" class="sidebar-link signout">
+                    Sign Out
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main content -->
+        <div class="main-content">
+            <div id="main-content" class="p-6">
+                <h1 class="text-2xl font-bold mb-6">Dashboard</h1>
+                <div class="content-card">
+                    <p>Welcome back to DESKROW. Start a new transaction or check your existing ones.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme toggle -->
+    <div style="position: fixed; bottom: 1rem; right: 1rem;">
+        <button id="theme-toggle" class="button-outline" style="padding: 0.5rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Auth modal (hidden by default) -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <div id="auth-form-container"></div>
+        </div>
+    </div>
+
+    <!-- Transaction modal (hidden by default) -->
+    <div id="tx-modal" class="modal">
+        <div class="modal-content wide">
+            <div id="transaction-form-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+
+        // Load auth form
+        fetch('/api/auth-form')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('auth-form-container').innerHTML = html;
+            });
+
+        // Load transaction form
+        fetch('/api/transaction-form')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('transaction-form-container').innerHTML = html;
+            });
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DESKROW - New Transaction</title>
+    <link rel="stylesheet" href="/static/css/radix-theme.css">
+    <script src="/static/js/theme-toggle.js"></script>
+    <style>
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+        .modal-content {
+            background-color: var(--radix-colors-gray-1);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            width: 100%;
+            max-width: 32rem;
+        }
+        .form-field {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        input, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--radix-colors-gray-6);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="modal-overlay">
+        <div class="modal-content">
+            <h2 class="text-xl font-bold mb-4">New Transaction</h2>
+            
+            <form id="transaction-form" onsubmit="submitTransactionForm(event)">
+                <div class="form-field">
+                    <label>Transaction Password</label>
+                    <input type="password" placeholder="Enter transaction password" required>
+                </div>
+
+                <div class="form-field">
+                    <label>Swap Instrument</label>
+                    <select required>
+                        <option value="">Select instrument</option>
+                        <option value="btc_trc20">Bitcoin / USDT TRC-20</option>
+                        <option value="btc_erc20">Bitcoin / USDT ERC-20</option>
+                        <option value="trc20_erc20">USDT TRC-20 / USDT ERC-20</option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label>Swap Template</label>
+                    <select required>
+                        <option value="">Select template</option>
+                        <option value="standard">Standard swap</option>
+                        <option value="escrow">Escrow based</option>
+                        <option value="liquidity">3rd party liquidity</option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label>Commission %</label>
+                    <input type="number" step="0.01" min="0" max="10" 
+                           placeholder="0.5" required>
+                </div>
+
+                <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+                    <button type="button" class="button button-outline">
+                        Cancel
+                    </button>
+                    <button type="submit" class="button button-primary" id="submit-btn">
+                        Initiate Transaction
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Theme toggle -->
+    <div style="position: fixed; bottom: 1rem; right: 1rem;">
+        <button id="theme-toggle" class="button-outline" style="padding: 0.5rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        function submitTransactionForm(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            fetch('/api/transactions', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.redirected) {
+                    window.location.href = response.url;
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Theme toggle functionality
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+    </script>
+</body>
+</html>

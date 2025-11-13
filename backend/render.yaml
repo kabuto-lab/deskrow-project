@@ -1,0 +1,21 @@
+services:
+- type: web
+  name: deskrow-backend
+  env: go
+  region: frankfurt  # Choose closest region to your users
+  buildCommand: go build -o server main.go
+  startCommand: ./server
+  envVars:
+    - key: SERVER_PORT
+      sync: false  # Render will provide $PORT
+    - key: ENV
+      value: production
+    - key: DEBUG
+      value: false
+    - key: RATE_LIMIT_ENABLED
+      value: true
+    - key: SECURE_HEADERS_ENABLED
+      value: true
+  autoDeploy: true
+  healthCheckPath: /api/v1/server-time
+  envVarSync: false  # Let user configure secrets manually

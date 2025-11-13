@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DESKROW - Atomic Crypto Swap</title>
+    <link rel="stylesheet" href="/static/css/radix-theme.css">
+    <script src="/static/js/theme-toggle.js"></script>
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .hero {
+            text-align: center;
+            max-width: 60rem;
+            margin: 0 auto 3rem;
+            padding: 0 1rem;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 40rem;
+            margin: 0 auto 2.5rem;
+        }
+        .features {
+            max-width: 80rem;
+            width: 100%;
+            margin-top: 3rem;
+            padding: 0 1rem;
+        }
+        .features-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .feature-card {
+            flex: 1;
+            max-width: 24rem;
+            text-align: center;
+            margin: 0 auto;
+        }
+        .feature-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background-color: var(--radix-colors-blue-9);
+            color: white;
+        }
+        .feature-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        @media (min-width: 768px) {
+            .features-grid {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo text-gray-12" style="font-size: 1.25rem; font-weight: 600;">DESKROW</div>
+            <div class="theme-toggle-container">
+                <button id="theme-toggle" class="button button-outline">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Spacer for fixed navigation -->
+    <div style="height: 4rem;"></div>
+
+    <main class="flex-1 w-full max-w-6xl mx-auto px-4 py-12">
+        <div class="hero">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                <span class="text-blue-9">Trustless</span> Atomic Swaps
+            </h1>
+            <p class="text-gray-11 text-lg mb-8 max-w-2xl mx-auto">
+                Securely exchange cryptocurrencies without centralized intermediaries using our decentralized escrow system
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/auth" class="button button-primary">Exchange</a>
+                <a href="#features" class="button button-outline">Learn More</a>
+            </div>
+        </div>
+        
+        <div id="features" class="features mt-16">
+            <h2 class="text-2xl font-bold text-center mb-12">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card content-card p-6">
+                    <div class="feature-icon mx-auto mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold mb-2">No Custody</h3>
+                    <p class="text-gray-11">Funds never leave your control during swaps</p>
+                </div>
+                <div class="feature-card content-card p-6">
+                    <div class="feature-icon mx-auto mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold mb-2">Cross-Chain</h3>
+                    <p class="text-gray-11">Swap between different blockchains securely</p>
+                </div>
+                <div class="feature-card content-card p-6">
+                    <div class="feature-icon mx-auto mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold mb-2">Encrypted Chat</h3>
+                    <p class="text-gray-11">Communicate securely with counterparties</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="w-full py-8 text-center text-gray-11 border-t border-gray-6 mt-12 bg-gray-2">
+        <div class="max-w-6xl mx-auto px-4">© 2025 DESKROW. All rights reserved.</div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    document.documentElement.classList.toggle('dark');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

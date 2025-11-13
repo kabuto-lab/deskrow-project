@@ -1,0 +1,421 @@
+:root {
+  /* Gray scale */
+  --radix-colors-gray-1: hsl(0 0% 99.0%);
+  --radix-colors-gray-2: hsl(0 0% 97.3%);
+  --radix-colors-gray-3: hsl(0 0% 95.1%);
+  --radix-colors-gray-4: hsl(0 0% 92.9%);
+  --radix-colors-gray-5: hsl(0 0% 90.0%);
+  --radix-colors-gray-6: hsl(0 0% 86.7%);
+  --radix-colors-gray-7: hsl(0 0% 82.0%);
+  --radix-colors-gray-8: hsl(0 0% 64.0%);
+  --radix-colors-gray-9: hsl(0 0% 45.0%);
+  --radix-colors-gray-10: hsl(0 0% 40.0%);
+  --radix-colors-gray-11: hsl(0 0% 25.0%);
+  --radix-colors-gray-12: hsl(0 0% 9.0%);
+
+  /* Blue scale */
+  --radix-colors-blue-1: hsl(206 100% 99.2%);
+  --radix-colors-blue-9: hsl(206 100% 50.0%);
+  --radix-colors-blue-10: hsl(206 100% 45.0%);
+
+  /* Red scale */
+  --radix-colors-red-1: hsl(0 100% 99.0%);
+  --radix-colors-red-2: hsl(0 100% 97.3%);
+  --radix-colors-red-3: hsl(0 100% 94.1%);
+  --radix-colors-red-4: hsl(0 100% 90.0%);
+  --radix-colors-red-5: hsl(0 100% 85.7%);
+  --radix-colors-red-6: hsl(0 100% 80.0%);
+  --radix-colors-red-7: hsl(0 100% 70.0%);
+  --radix-colors-red-8: hsl(0 100% 60.0%);
+  --radix-colors-red-9: hsl(0 100% 50.0%);
+  --radix-colors-red-10: hsl(0 100% 45.0%);
+  --radix-colors-red-11: hsl(0 100% 35.0%);
+  --radix-colors-red-12: hsl(0 100% 20.0%);
+
+  /* Yellow scale */
+  --radix-colors-yellow-1: hsl(50 100% 99.0%);
+  --radix-colors-yellow-2: hsl(50 100% 97.3%);
+  --radix-colors-yellow-3: hsl(50 100% 94.1%);
+  --radix-colors-yellow-4: hsl(50 100% 90.0%);
+  --radix-colors-yellow-5: hsl(50 100% 85.7%);
+  --radix-colors-yellow-6: hsl(50 100% 80.0%);
+  --radix-colors-yellow-7: hsl(50 100% 70.0%);
+  --radix-colors-yellow-8: hsl(50 100% 60.0%);
+  --radix-colors-yellow-9: hsl(50 100% 50.0%);
+  --radix-colors-yellow-10: hsl(50 100% 45.0%);
+  --radix-colors-yellow-11: hsl(50 100% 35.0%);
+  --radix-colors-yellow-12: hsl(50 100% 20.0%);
+
+  /* Green scale */
+  --radix-colors-green-1: hsl(120 100% 99.0%);
+  --radix-colors-green-2: hsl(120 100% 97.3%);
+  --radix-colors-green-3: hsl(120 100% 94.1%);
+  --radix-colors-green-4: hsl(120 100% 90.0%);
+  --radix-colors-green-5: hsl(120 100% 85.7%);
+  --radix-colors-green-6: hsl(120 100% 80.0%);
+  --radix-colors-green-7: hsl(120 100% 70.0%);
+  --radix-colors-green-8: hsl(120 100% 60.0%);
+  --radix-colors-green-9: hsl(120 100% 50.0%);
+  --radix-colors-green-10: hsl(120 100% 45.0%);
+  --radix-colors-green-11: hsl(120 100% 35.0%);
+  --radix-colors-green-12: hsl(120 100% 20.0%);
+
+  /* Orange scale */
+  --radix-colors-orange-1: hsl(30 100% 99.0%);
+  --radix-colors-orange-2: hsl(30 100% 97.3%);
+  --radix-colors-orange-3: hsl(30 100% 94.1%);
+  --radix-colors-orange-4: hsl(30 100% 90.0%);
+  --radix-colors-orange-5: hsl(30 100% 85.7%);
+  --radix-colors-orange-6: hsl(30 100% 80.0%);
+  --radix-colors-orange-7: hsl(30 100% 70.0%);
+  --radix-colors-orange-8: hsl(30 100% 60.0%);
+  --radix-colors-orange-9: hsl(30 100% 50.0%);
+  --radix-colors-orange-10: hsl(30 100% 45.0%);
+  --radix-colors-orange-11: hsl(30 100% 35.0%);
+  --radix-colors-orange-12: hsl(30 100% 20.0%);
+
+  /* Yellow-green scale */
+  --radix-colors-yellow-green-1: hsl(80 100% 99.0%);
+  --radix-colors-yellow-green-2: hsl(80 100% 97.3%);
+  --radix-colors-yellow-green-3: hsl(80 100% 94.1%);
+  --radix-colors-yellow-green-4: hsl(80 100% 90.0%);
+  --radix-colors-yellow-green-5: hsl(80 100% 85.7%);
+  --radix-colors-yellow-green-6: hsl(80 100% 80.0%);
+  --radix-colors-yellow-green-7: hsl(80 100% 70.0%);
+  --radix-colors-yellow-green-8: hsl(80 100% 60.0%);
+  --radix-colors-yellow-green-9: hsl(80 100% 50.0%);
+  --radix-colors-yellow-green-10: hsl(80 100% 45.0%);
+  --radix-colors-yellow-green-11: hsl(80 100% 35.0%);
+  --radix-colors-yellow-green-12: hsl(80 100% 20.0%);
+
+  /* Fonts */
+  --radix-fonts-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.dark {
+  /* Gray scale */
+  --radix-colors-gray-1: hsl(0 0% 8.5%);
+  --radix-colors-gray-2: hsl(0 0% 11.0%);
+  --radix-colors-gray-3: hsl(0 0% 13.6%);
+  --radix-colors-gray-4: hsl(0 0% 15.8%);
+  --radix-colors-gray-5: hsl(0 0% 17.9%);
+  --radix-colors-gray-6: hsl(0 0% 20.5%);
+  --radix-colors-gray-7: hsl(0 0% 24.3%);
+  --radix-colors-gray-8: hsl(0 0% 31.2%);
+  --radix-colors-gray-9: hsl(0 0% 43.9%);
+  --radix-colors-gray-10: hsl(0 0% 49.4%);
+  --radix-colors-gray-11: hsl(0 0% 62.8%);
+  --radix-colors-gray-12: hsl(0 0% 93.0%);
+
+  /* Blue scale */
+  --radix-colors-blue-1: hsl(212 35% 9.2%);
+  --radix-colors-blue-9: hsl(206 100% 50.0%);
+  --radix-colors-blue-10: hsl(206 100% 61.8%);
+
+  /* Red scale */
+  --radix-colors-red-1: hsl(0 50% 8.5%);
+  --radix-colors-red-2: hsl(0 50% 11.0%);
+  --radix-colors-red-3: hsl(0 50% 13.6%);
+  --radix-colors-red-4: hsl(0 50% 15.8%);
+  --radix-colors-red-5: hsl(0 50% 17.9%);
+  --radix-colors-red-6: hsl(0 50% 20.5%);
+  --radix-colors-red-7: hsl(0 50% 24.3%);
+  --radix-colors-red-8: hsl(0 50% 31.2%);
+  --radix-colors-red-9: hsl(0 50% 43.9%);
+  --radix-colors-red-10: hsl(0 50% 49.4%);
+  --radix-colors-red-11: hsl(0 50% 62.8%);
+  --radix-colors-red-12: hsl(0 50% 93.0%);
+
+  /* Yellow scale */
+  --radix-colors-yellow-1: hsl(50 50% 8.5%);
+  --radix-colors-yellow-2: hsl(50 50% 11.0%);
+  --radix-colors-yellow-3: hsl(50 50% 13.6%);
+  --radix-colors-yellow-4: hsl(50 50% 15.8%);
+  --radix-colors-yellow-5: hsl(50 50% 17.9%);
+  --radix-colors-yellow-6: hsl(50 50% 20.5%);
+  --radix-colors-yellow-7: hsl(50 50% 24.3%);
+  --radix-colors-yellow-8: hsl(50 50% 31.2%);
+  --radix-colors-yellow-9: hsl(50 50% 43.9%);
+  --radix-colors-yellow-10: hsl(50 50% 49.4%);
+  --radix-colors-yellow-11: hsl(50 50% 62.8%);
+  --radix-colors-yellow-12: hsl(50 50% 93.0%);
+
+  /* Green scale */
+  --radix-colors-green-1: hsl(120 50% 8.5%);
+  --radix-colors-green-2: hsl(120 50% 11.0%);
+  --radix-colors-green-3: hsl(120 50% 13.6%);
+  --radix-colors-green-4: hsl(120 50% 15.8%);
+  --radix-colors-green-5: hsl(120 50% 17.9%);
+  --radix-colors-green-6: hsl(120 50% 20.5%);
+  --radix-colors-green-7: hsl(120 50% 24.3%);
+  --radix-colors-green-8: hsl(120 50% 31.2%);
+  --radix-colors-green-9: hsl(120 50% 43.9%);
+  --radix-colors-green-10: hsl(120 50% 49.4%);
+  --radix-colors-green-11: hsl(120 50% 62.8%);
+  --radix-colors-green-12: hsl(120 50% 93.0%);
+
+  /* Orange scale */
+  --radix-colors-orange-1: hsl(30 50% 8.5%);
+  --radix-colors-orange-2: hsl(30 50% 11.0%);
+  --radix-colors-orange-3: hsl(30 50% 13.6%);
+  --radix-colors-orange-4: hsl(30 50% 15.8%);
+  --radix-colors-orange-5: hsl(30 50% 17.9%);
+  --radix-colors-orange-6: hsl(30 50% 20.5%);
+  --radix-colors-orange-7: hsl(30 50% 24.3%);
+  --radix-colors-orange-8: hsl(30 50% 31.2%);
+  --radix-colors-orange-9: hsl(30 50% 43.9%);
+  --radix-colors-orange-10: hsl(30 50% 49.4%);
+  --radix-colors-orange-11: hsl(30 50% 62.8%);
+  --radix-colors-orange-12: hsl(30 50% 93.0%);
+
+  /* Yellow-green scale */
+  --radix-colors-yellow-green-1: hsl(80 50% 8.5%);
+  --radix-colors-yellow-green-2: hsl(80 50% 11.0%);
+  --radix-colors-yellow-green-3: hsl(80 50% 13.6%);
+  --radix-colors-yellow-green-4: hsl(80 50% 15.8%);
+  --radix-colors-yellow-green-5: hsl(80 50% 17.9%);
+  --radix-colors-yellow-green-6: hsl(80 50% 20.5%);
+  --radix-colors-yellow-green-7: hsl(80 50% 24.3%);
+  --radix-colors-yellow-green-8: hsl(80 50% 31.2%);
+  --radix-colors-yellow-green-9: hsl(80 50% 43.9%);
+  --radix-colors-yellow-green-10: hsl(80 50% 49.4%);
+  --radix-colors-yellow-green-11: hsl(80 50% 62.8%);
+  --radix-colors-yellow-green-12: hsl(80 50% 93.0%);
+}
+
+body {
+  background: var(--radix-colors-gray-1);
+  color: var(--radix-colors-gray-12);
+  font-family: var(--radix-fonts-sans);
+  transition: all 0.2s ease;
+}
+
+/* Utility classes */
+.bg-gray-1 { background-color: var(--radix-colors-gray-1) }
+.bg-gray-2 { background-color: var(--radix-colors-gray-2) }
+.bg-gray-3 { background-color: var(--radix-colors-gray-3) }
+.bg-gray-600 { background-color: var(--radix-colors-gray-9) }
+.text-gray-9 { color: var(--radix-colors-gray-9) }
+.text-gray-10 { color: var(--radix-colors-gray-10) }
+.text-gray-11 { color: var(--radix-colors-gray-11) }
+.text-gray-12 { color: var(--radix-colors-gray-12) }
+.text-blue-9 { color: var(--radix-colors-blue-9) }
+.text-green-9 { color: var(--radix-colors-green-9) }
+.text-yellow-9 { color: var(--radix-colors-yellow-9) }
+.text-red-9 { color: var(--radix-colors-red-9) }
+.text-blue-500 { color: var(--radix-colors-blue-9) }
+.text-green-500 { color: var(--radix-colors-green-9) }
+.text-yellow-500 { color: var(--radix-colors-yellow-9) }
+.text-red-500 { color: var(--radix-colors-red-9) }
+.text-blue-400 { color: var(--radix-colors-blue-8) }
+.text-green-400 { color: var(--radix-colors-green-8) }
+.text-yellow-400 { color: var(--radix-colors-yellow-8) }
+.bg-yellow-50 { background-color: var(--radix-colors-yellow-2) }
+.bg-blue-50 { background-color: var(--radix-colors-blue-2) }
+.bg-green-50 { background-color: var(--radix-colors-green-2) }
+.bg-red-50 { background-color: var(--radix-colors-red-2) }
+.bg-green-500 { background-color: var(--radix-colors-green-9) }
+.bg-blue-500 { background-color: var(--radix-colors-blue-9) }
+.bg-yellow-500 { background-color: var(--radix-colors-yellow-9) }
+.border-gray-6 { border-color: var(--radix-colors-gray-6); }
+.border-t { border-top: 1px solid var(--radix-colors-gray-6); }
+.border-b { border-bottom: 1px solid var(--radix-colors-gray-6); }
+.hover-bg-gray-3:hover,
+.hover\:bg-gray-3:hover { background-color: var(--radix-colors-gray-3); }
+
+/* Additional hover text color classes */
+.hover\:text-gray-12:hover { color: var(--radix-colors-gray-12); }
+
+/* Layout classes */
+.min-h-screen { min-height: 100vh; }
+.max-w-7xl { max-width: 80rem; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+.py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+.py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.space-x-4 > * + * { margin-left: 1rem; }
+.space-x-3 > * + * { margin-left: 0.75rem; }
+.grid { display: grid; }
+.grid-cols-1 { grid-template-columns: 1fr; }
+.gap-8 { gap: 2rem; }
+.space-y-6 > * + * { margin-top: 1.5rem; }
+.space-y-4 > * + * { margin-top: 1rem; }
+.rounded-xl { border-radius: 0.75rem; }
+.p-6 { padding: 1.5rem; }
+.p-4 { padding: 1rem; }
+.p-2 { padding: 0.5rem; }
+.p-3 { padding: 0.75rem; }
+.w-6 { width: 1.5rem; }
+.h-6 { height: 1.5rem; }
+.w-8 { width: 2rem; }
+.h-8 { height: 2rem; }
+.w-4 { width: 1rem; }
+.h-4 { height: 1rem; }
+.w-5 { width: 1.25rem; }
+.h-5 { height: 1.25rem; }
+.rounded-lg { border-radius: 0.5rem; }
+.space-y-3 > * + * { margin-top: 0.75rem; }
+.flex-shrink-0 { flex-shrink: 0; }
+.flex-1 { flex: 1; }
+.items-start { align-items: flex-start; }
+.text-center { text-align: center; }
+.justify-start { justify-content: flex-start; }
+.justify-end { justify-content: flex-end; }
+.truncate { 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  white-space: nowrap; 
+}
+.max-w-xs { max-width: 20rem; }
+.rounded-full { border-radius: 9999px; }
+.top-8 { top: 2rem; }
+.left-4 { left: 1rem; }
+.w-0-5 { width: 0.125rem; }
+.min-w-0 { min-width: 0; }
+.flex-col { flex-direction: column; }
+.mt-1 { margin-top: 0.25rem; }
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mt-3 { margin-top: 0.75rem; }
+.mr-2 { margin-right: 0.5rem; }
+.mr-1 { margin-right: 0.25rem; }
+.mt-0-5 { margin-top: 0.125rem; }
+.mt-0 { margin-top: 0; }
+.opacity-70 { opacity: 0.7; }
+.max-h-64 { max-height: 16rem; }
+.overflow-y-auto { overflow-y: auto; }
+.border-t { border-top: 1px solid var(--radix-colors-gray-6); }
+.border-b { border-bottom: 1px solid var(--radix-colors-gray-6); }
+.cursor-not-allowed { cursor: not-allowed; }
+.cursor-pointer { cursor: pointer; }
+.transition-colors { transition: background-color 0.2s ease; }
+
+/* Font sizes */
+.text-2xl { font-size: 1.5rem; }
+.text-xl { font-size: 1.25rem; }
+.text-lg { font-size: 1.125rem; }
+.text-sm { font-size: 0.875rem; }
+.text-xs { font-size: 0.75rem; }
+
+/* Font weights */
+.font-bold { font-weight: 700; }
+.font-semibold { font-weight: 600; }
+.font-medium { font-weight: 500; }
+
+/* Font family */
+.font-mono { font-family: monospace; }
+
+/* Responsive grid */
+@media (min-width: 1024px) {
+  .lg-grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Layout */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 16rem;
+  background-color: var(--radix-colors-gray-2);
+  border-right: 1px solid var(--radix-colors-gray-6);
+}
+
+.main-content {
+  flex: 1;
+  overflow: auto;
+  padding: 1.5rem;
+}
+
+.content-card {
+  background-color: var(--radix-colors-gray-2);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Hover states for items that need them */
+.item-hover {
+  transition: background-color 0.2s ease;
+}
+.item-hover:hover {
+  background-color: var(--radix-colors-gray-3);
+}
+
+/* Navigation */
+nav {
+  background-color: var(--radix-colors-gray-2);
+  border-bottom: 1px solid var(--radix-colors-gray-6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: 0 1rem;
+}
+
+.nav-container {
+  max-width: 80rem;
+  margin: 0 auto;
+  height: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Forms */
+.form-field {
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  color: var(--radix-colors-red-9);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: none;
+}
+
+.error-message.field-error {
+  display: block;
+}
+
+/* Buttons */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 150ms ease;
+  text-decoration: none;
+}
+
+.button-primary {
+  background-color: var(--radix-colors-blue-9);
+  color: white;
+}
+
+.button-primary:hover {
+  background-color: var(--radix-colors-blue-10);
+}
+
+.button-outline {
+  background-color: transparent;
+  border: 1px solid var(--radix-colors-gray-6);
+  color: var(--radix-colors-gray-12);
+}
+
+.button-outline:hover {
+  background-color: var(--radix-colors-gray-2);
+}

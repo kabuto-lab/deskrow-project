@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deskrow Exchange Authentication</title>
+    <link rel="stylesheet" href="../static/css/radix-theme.css">
+    <script src="../static/js/theme-toggle.js"></script>
+    <script src="../static/js/bcrypt.js"></script>
+    <script src="../static/js/base64.js"></script>
+    <script>
+        window.__SERVER_DATA = {
+            session_id: '{{.SessionID}}', 
+            timestamp: parseInt('{{.Timestamp}}')
+        };
+    </script>
+    <script type="module">
+        import { initAuth } from '../static/js/auth.js';
+        document.addEventListener('DOMContentLoaded', initAuth);
+    </script>
+    
+    <style>
+        .auth-container {
+            max-width: 24rem;
+            margin: 2rem auto;
+            padding: 1rem;
+            opacity: 1;
+        }
+        .auth-footer {
+            margin-top: 1rem;
+            text-align: center;
+        }
+        .form-field {
+            margin-bottom: 1rem;
+        }
+        .error-message {
+            color: var(--radix-colors-red-11);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+            padding: 0.25rem 0.5rem;
+            background-color: var(--radix-colors-red-3);
+            border-radius: 0.25rem;
+        }
+        .error-message.field-error {
+            display: block;
+        }
+        input:invalid {
+            border-color: var(--radix-colors-red-7);
+        }
+        input:focus:invalid {
+            border-color: var(--radix-colors-red-9);
+            box-shadow: 0 0 0 1px var(--radix-colors-red-9);
+        }
+        button {
+            background-color: var(--radix-colors-blue-9);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: var(--radix-colors-blue-10);
+        }
+        button.ghost {
+            background-color: transparent;
+            color: var(--radix-colors-gray-12);
+        }
+        button.ghost:hover {
+            background-color: var(--radix-colors-gray-3);
+        }
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--radix-colors-gray-6);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+            <button 
+                id="signin-tab" 
+                class="ghost"
+                style="flex: 1;"
+                data-form="signin"
+            >
+                Sign In
+            </button>
+            <button 
+                id="signup-tab" 
+                class="ghost"
+                style="flex: 1;"
+                data-form="signup"
+            >
+                Sign Up
+            </button>
+        </div>
+
+        <div id="signin-form">
+            <h2>Sign in to DESKROW EXCHANGE</h2>
+            <form id="signin-form-element" action="/api/v1/auth/signin" method="POST" style="display: grid; gap: 0.75rem; margin-top: 1rem;">
+                <div class="form-field">
+                    <label for="signin-username-input">Username</label>
+                    <input 
+                        id="signin-username-input"
+                        type="text" 
+                        name="username" 
+                        required 
+                        minlength="3"
+                        data-error="signin-username-error"
+                    >
+                    <span id="signin-username-error" class="error-message"></span>
+                </div>
+                <div class="form-field">
+                    <label for="signin-password-input">Password</label>
+                    <input 
+                        id="signin-password-input"
+                        type="password" 
+                        name="password" 
+                        required 
+                        data-error="signin-password-error"
+                    >
+                    <span id="signin-password-error" class="error-message"></span>
+                </div>
+                <button type="submit">
+                    Sign In
+                </button>
+
+                <div style="margin: 1rem 0; text-align: center; color: var(--radix-colors-gray-11);">
+                    or connect with
+                </div>
+
+                <button 
+                    type="button" 
+                    id="connect-phantom" 
+                    style="background-color: #4e44ce; margin-bottom: 0.5rem;"
+                >
+                    Connect Phantom Wallet
+                </button>
+                <button 
+                    type="button" 
+                    id="connect-metamask" 
+                    style="background-color: #f6851b;"
+                >
+                    Connect MetaMask
+                </button>
+
+                <div style="margin-top: 1.5rem; padding: 0.75rem; background-color: var(--radix-colors-gray-2); border-radius: 0.5rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span style="font-size: 0.875rem; color: var(--radix-colors-gray-11);">Encryption Key:</span>
+                        <span id="key-version" style="font-family: monospace; font-weight: 500;">v1</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span style="font-size: 0.875rem; color: var(--radix-colors-gray-11);">Last Rotation:</span>
+                        <span id="last-rotation" style="font-size: 0.875rem;">-</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 0.875rem; color: var(--radix-colors-gray-11);">Status:</span>
+                        <div id="rotation-status" style="width: 0.75rem; height: 0.75rem; border-radius: 50%; background-color: var(--radix-colors-green-9);"></div>
+                        <span id="rotation-status-text" style="font-size: 0.875rem;">Active</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="signup-form" style="display: none;">
+            <h2>Create New User</h2>
+            
+            <form id="signup-form-element" style="display: grid; gap: 0.75rem; margin-top: 1rem; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid var(--radix-colors-gray-5);">
+                <h3>Account Information</h3>
+                <div class="form-field">
+                    <label for="signup-username-input">Username</label>
+                    <input 
+                        id="signup-username-input"
+                        type="text" 
+                        name="username" 
+                        required 
+                        minlength="3"
+                        pattern="^[a-zA-Z][a-zA-Z0-9_]*$"
+                        style="width: calc(100% - 1.5rem);"
+                        data-error="signup-username-error"
+                        title="Username must start with a letter and contain only letters, numbers and underscores"
+                    >
+                    <span id="signup-username-error" class="error-message"></span>
+                </div>
+                <div class="form-field">
+                    <label>Password</label>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input 
+                            id="signup-password-input" 
+                            type="password" 
+                            name="password" 
+                            required 
+                            minlength="8"
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            style="flex: 1;"
+                            data-error="signup-password-error"
+                            title="Must contain at least one number, one uppercase and lowercase letter, and at least 8 characters"
+                        >
+                        <button type="button" class="password-toggle" style="width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; background: var(--radix-colors-gray-3); border: 1px solid var(--radix-colors-gray-6); border-radius: 0.5rem; cursor: pointer;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                    <span id="signup-password-error" class="error-message">Password must be at least 8 characters with uppercase, lowercase, and a number</span>
+                    <div id="password-strength" style="margin-top: 0.5rem; height: 0.25rem; background-color: var(--radix-colors-gray-4); border-radius: 0.125rem; overflow: hidden;">
+                        <div id="password-strength-bar" style="height: 100%; width: 0%; transition: width 0.3s ease, background-color 0.3s ease;"></div>
+                    </div>
+                    <div id="password-strength-text" style="font-size: 0.75rem; margin-top: 0.25rem; color: var(--radix-colors-gray-11);"></div>
+                    <div style="font-size: 0.75rem; margin-top: 0.25rem; color: var(--radix-colors-gray-11);">
+                        Password must be at least 8 characters with uppercase, lowercase, and a number
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label>Confirm Password</label>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input 
+                            id="confirm-password-input" 
+                            type="password" 
+                            required 
+                            style="flex: 1;"
+                            data-error="signup-confirm-password-error"
+                        >
+                        <button type="button" class="password-toggle" style="width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; background: var(--radix-colors-gray-3); border: 1px solid var(--radix-colors-gray-6); border-radius: 0.5rem; cursor: pointer;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                    <span id="signup-confirm-password-error" class="error-message">Passwords must match</span>
+                </div>
+
+                <h3>Identity Information</h3>
+                <div id="identity-card" style="padding: 1rem; height: 120px; min-height: 120px; border-radius: 0.5rem; background-color: var(--radix-colors-gray-2); margin-bottom: 1rem; overflow: hidden;">
+                    <div style="display: flex; align-items: center; gap: 1rem; height: 100%; min-height: 100%;">
+                        <div id="avatar-card" style="width: 80px; height: 80px; min-width: 80px; min-height: 80px; background-color: var(--radix-colors-gray-3); overflow: hidden;"></div>
+                        <div style="display: grid; gap: 0.5rem;">
+                            <div>
+                                <div style="font-size: 0.75rem; color: var(--radix-colors-gray-11); margin-bottom: 0.25rem;">Alias</div>
+                                <div id="alias-display" style="padding: 0.5rem; background-color: var(--radix-colors-gray-3); border-radius: 0.25rem; font-weight: 600;"></div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.75rem; color: var(--radix-colors-gray-11); margin-bottom: 0.25rem;">Key</div>
+                                <div id="public-key-display" style="padding: 0.5rem; background-color: var(--radix-colors-gray-3); border-radius: 0.25rem; font-family: monospace; font-size: 0.75rem; word-break: break-all; color: var(--radix-colors-gray-12); font-weight: 500;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="button" id="generate-identity" style="margin-bottom: 1rem;">Generate New Identity</button>
+                <button type="submit" id="signup-button" disabled>
+                    Sign Up
+                </button>
+            </form>
+        </div>
+    </div>
+
+    </body>
+</html>

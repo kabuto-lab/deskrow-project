@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DESKROW - Transaction</title>
+    <link rel="stylesheet" href="/static/css/radix-theme.css">
+    <script src="/static/js/theme-toggle.js"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--radix-colors-blue-9) 0%, var(--radix-colors-blue-10) 100%);
+        }
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .status-pending {
+            background-color: var(--radix-colors-yellow-3);
+            color: var(--radix-colors-yellow-9);
+        }
+        .transaction-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .transaction-grid {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>DESKROW</h2>
+            </div>
+            <nav class="p-4 space-y-2">
+                <a href="/app" class="sidebar-link">
+                    Back to Dashboard
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main content -->
+        <div class="main-content">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-2xl font-bold">Transaction #<span id="tx-hash">ABC123</span></h1>
+                    <div class="status-badge status-pending">
+                        Pending
+                    </div>
+                </div>
+
+                <!-- Transaction Options Dialog (hidden by default) -->
+                <div id="tx-options-dialog" class="modal" style="display:none">
+                    <div class="modal-content">
+                        <h2 class="text-xl font-bold mb-4">Transaction Options</h2>
+                        <form id="tx-form" onsubmit="submitTransactionForm(event)">
+                            <div class="form-field">
+                                <label>Swap Instrument</label>
+                                <select name="instrument" required>
+                                    <option value="btc_trc20">Bitcoin / USDT TRC-20</option>
+                                    <option value="btc_erc20">Bitcoin / USDT ERC-20</option>
+                                    <option value="trc20_erc20">USDT TRC-20 / USDT ERC-20</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label>Swap Template</label>
+                                <select name="template" required>
+                                    <option value="standard">Standard swap</option>
+                                    <option value="escrow">Escrow based</option>
+                                    <option value="liquidity">3rd party liquidity</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label>Commission %</label>
+                                <input type="number" name="commission" min="0" max="5" step="0.1" value="0.5" required>
+                            </div>
+                            <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+                                <button type="button" class="button button-outline" onclick="document.getElementById('tx-options-dialog').style.display='none'">
+                                    Cancel
+                                </button>
+                                <button type="submit" class="button button-primary">
+                                    Initiate Transaction
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="transaction-grid">
+                    <!-- Transaction Details -->
+                    <div class="content-card">
+                        <h2 class="text-lg font-semibold mb-4">Transaction Details</h2>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+                            <div>
+                                <p class="text-gray-11 text-sm">Swap Instrument</p>
+                                <p class="font-medium">Bitcoin / USDT TRC-20</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-11 text-sm">Swap Template</p>
+                                <p class="font-medium">Escrow based</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-11 text-sm">Commission</p>
+                                <p class="font-medium">0.5%</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-11 text-sm">Created</p>
+                                <p class="font-medium">Just now</p>
+                            </div>
+                        </div>
+
+                        <div style="border-top: 1px solid var(--radix-colors-gray-6); padding-top: 1rem;">
+                            <h3 class="font-medium mb-2">Enter Transaction Password</h3>
+                            <input type="password" class="w-full" placeholder="Enter password to view details">
+                            <button class="button button-primary mt-4" id="decrypt-btn" onclick="decryptDetails()">
+                                Decrypt Details
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Chat Section -->
+                    <div class="content-card">
+                        <div style="border-bottom: 1px solid var(--radix-colors-gray-6); padding: 1rem;">
+                            <h2 class="text-lg font-semibold">Secure Chat</h2>
+                        </div>
+                        <div style="padding: 1rem; height: 16rem; overflow-y: auto;" id="message-list">
+                            <!-- Messages will be loaded here -->
+                        </div>
+                        <div style="border-top: 1px solid var(--radix-colors-gray-6); padding: 1rem;">
+                            <div style="display: flex;">
+                                <input type="text"
+                                    style="flex: 1; padding: 0.5rem; border: 1px solid var(--radix-colors-gray-6); border-radius: 0.25rem 0 0 0.25rem;"
+                                    placeholder="Type a message..."
+                                    name="message">
+                                <button class="button button-primary" id="send-message-btn" onclick="sendMessage()" 
+                                    style="border-radius: 0 0.25rem 0.25rem 0;">
+                                    Send
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transaction Steps -->
+                <div class="content-card mt-6">
+                    <h2 class="text-lg font-semibold mb-4">Transaction Steps</h2>
+                    <div id="transaction-steps">
+                        <!-- Steps will be loaded dynamically -->
+                        <div style="display: flex; align-items: center;">
+                            <div style="width: 2rem; height: 2rem; border-radius: 9999px; background-color: var(--radix-colors-blue-3); display: flex; align-items: center; justify-content: center; margin-right: 0.75rem;">
+                                <span style="color: var(--radix-colors-blue-9);">1</span>
+                            </div>
+                            <div>
+                                <p class="font-medium">Loading transaction status...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme toggle -->
+    <div style="position: fixed; bottom: 1rem; right: 1rem;">
+        <button id="theme-toggle" class="button-outline" style="padding: 0.5rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        // Initialize WebSocket connection for chat
+        const socket = new WebSocket(`ws://${window.location.host}/ws/chat/${document.getElementById('tx-hash').textContent}`);
+        
+        socket.onmessage = function(event) {
+            const messageList = document.getElementById('message-list');
+            const message = document.createElement('div');
+            message.innerHTML = event.data;
+            messageList.appendChild(message);
+            messageList.scrollTop = messageList.scrollHeight;
+        };
+
+        // Load initial messages
+        fetch(`/api/messages/${document.getElementById('tx-hash').textContent}`)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('message-list').innerHTML = html;
+            });
+
+        // Send message function
+        function sendMessage() {
+            const input = document.querySelector('input[name="message"]');
+            const message = input.value.trim();
+            if (message) {
+                socket.send(message);
+                input.value = '';
+            }
+        }
+
+        // Transaction form submission
+        function submitTransactionForm(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            fetch('/api/transactions', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('transaction-container').innerHTML = html;
+            });
+        }
+
+        // Decrypt details
+        function decryptDetails() {
+            const password = document.querySelector('input[type="password"]').value;
+            
+            fetch('/api/decrypt', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ password })
+            })
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('tx-details').innerHTML = html;
+            });
+        }
+
+        // Load transaction steps
+        function loadTransactionSteps() {
+            fetch(`/api/transaction/${document.getElementById('tx-hash').textContent}/steps`)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('transaction-steps').innerHTML = html;
+                });
+        }
+
+        // Theme toggle functionality
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+
+        // Initial load
+        loadTransactionSteps();
+        setInterval(loadTransactionSteps, 5000);
+    </script>
+</body>
+</html>

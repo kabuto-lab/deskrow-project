@@ -1,0 +1,375 @@
+import React, { useState, useEffect } from 'react';
+import { Clock, CheckCircle, AlertCircle, Send, Download, Lock, Unlock, ArrowRight, MessageCircle, User, Bot, FileText, Image, Link } from 'lucide-react';
+
+const App = () => {
+  const [transactionState, setTransactionState] = useState('pending');
+  const [currentStep, setCurrentStep] = useState(1);
+  const [chatMessages, setChatMessages] = useState([
+    { id: 1, sender: 'system', message: 'Atomic swap transaction initialized. Please review the terms.', timestamp: '10:30 AM' },
+    { id: 2, sender: 'user', message: 'Terms look good. Ready to proceed.', timestamp: '10:32 AM' }
+  ]);
+  const [newMessage, setNewMessage] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const transactionStates = {
+    pending: { icon: Clock, color: 'text-yellow-500', bg: 'bg-yellow-50', text: 'Pending' },
+    processing: { icon: Lock, color: 'text-blue-500', bg: 'bg-blue-50', text: 'Processing' },
+    completed: { icon: CheckCircle, color: 'text-green-500', bg: 'bg-green-50', text: 'Completed' },
+    failed: { icon: AlertCircle, color: 'text-red-500', bg: 'bg-red-50', text: 'Failed' }
+  };
+
+  const steps = [
+    { id: 1, title: 'Initiate Swap', description: 'Create swap proposal and lock funds', completed: true },
+    { id: 2, title: 'Verify Terms', description: 'Confirm swap parameters and signatures', completed: true },
+    { id: 3, title: 'Execute Swap', description: 'Complete atomic swap transaction', completed: false },
+    { id: 4, title: 'Finalize', description: 'Release funds and complete transfer', completed: false }
+  ];
+
+  const connectedUsers = [
+    { id: 1, name: 'You', status: 'online', avatar: 'Y' },
+    { id: 2, name: 'Counterparty', status: 'online', avatar: 'C' },
+    { id: 3, name: 'SwapBot', status: 'bot', avatar: 'B' },
+    { id: 4, name: 'Arbitrator', status: 'away', avatar: 'A' }
+  ];
+
+  const attachedFiles = [
+    { id: 1, name: 'swap_contract.pdf', type: 'pdf', size: '2.4 MB' },
+    { id: 2, name: 'transaction_details.png', type: 'image', size: '1.1 MB' },
+    { id: 3, name: 'smart_contract.sol', type: 'code', size: '15.7 KB' },
+    { id: 4, name: 'audit_report.pdf', type: 'pdf', size: '3.2 MB' },
+    { id: 5, name: 'terms_of_service.pdf', type: 'pdf', size: '1.8 MB' }
+  ];
+
+  const handleSendMessage = () => {
+    if (newMessage.trim()) {
+      const message = {
+        id: chatMessages.length + 1,
+        sender: 'user',
+        message: newMessage,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+      setChatMessages([...chatMessages, message]);
+      setNewMessage('');
+      
+      // Simulate bot response
+      setTimeout(() => {
+        const botResponse = {
+          id: chatMessages.length + 2,
+          sender: 'bot',
+          message: 'Processing your request. Please wait for confirmation.',
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+        setChatMessages(prev => [...prev, botResponse]);
+      }, 1000);
+    }
+  };
+
+  const handleExecuteStep = (stepId) => {
+    if (stepId === 3) {
+      setIsProcessing(true);
+      setTimeout(() => {
+        setCurrentStep(4);
+        setIsProcessing(false);
+        setTransactionState('completed');
+        
+        const completionMessage = {
+          id: chatMessages.length + 1,
+          sender: 'system',
+          message: 'Atomic swap completed successfully! Funds have been transferred.',
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+        setChatMessages(prev => [...prev, completionMessage]);
+      }, 3000);
+    } else if (stepId === 4) {
+      // Final step - already completed
+    }
+  };
+
+  const getFileIcon = (fileType) => {
+    switch (fileType) {
+      case 'pdf': return <FileText className="w-4 h-4 text-red-400" />;
+      case 'image': return <Image className="w-4 h-4 text-green-400" />;
+      case 'code': return <Link className="w-4 h-4 text-blue-400" />;
+      default: return <FileText className="w-4 h-4 text-gray-400" />;
+    }
+  };
+
+  const StateIcon = transactionStates[transactionState].icon;
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      {/* Header */}
+      <div className="bg-white/10 backdrop-blur-md border-b border-white/20">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg">
+                <Lock className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-white">Atomic Swap Transaction</h1>
+                <p className="text-gray-300">Decentralized cross-chain exchange</p>
+              </div>
+            </div>
+            <div className={`flex items-center space-x-3 px-4 py-2 rounded-full ${transactionStates[transactionState].bg} border border-white/20`}>
+              <StateIcon className={`w-5 h-5 ${transactionStates[transactionState].color}`} />
+              <span className={`font-semibold ${transactionStates[transactionState].color}`}>
+                {transactionStates[transactionState].text}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Section - Transaction Description */}
+          <div className="space-y-6">
+            <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
+              <h2 className="text-xl font-bold text-white mb-4">Transaction Details</h2>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-300">From:</span>
+                  <span className="text-white font-mono">bc1q...xyz789</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-300">To:</span>
+                  <span className="text-white font-mono">0x...abc123</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-300">Amount:</span>
+                  <span className="text-green-400 font-bold">1.25 BTC</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-300">Exchange Rate:</span>
+                  <span className="text-blue-400 font-bold">1 BTC = 25 ETH</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-300">Network Fee:</span>
+                  <span className="text-yellow-400 font-bold">0.002 BTC</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
+              <h2 className="text-xl font-bold text-white mb-4">Comments</h2>
+              <div className="space-y-3">
+                <div className="bg-white/5 rounded-lg p-3">
+                  <p className="text-gray-300 text-sm">Ensure both parties have verified the smart contract before proceeding.</p>
+                  <p className="text-gray-500 text-xs mt-1">Posted 2 hours ago</p>
+                </div>
+                <div className="bg-white/5 rounded-lg p-3">
+                  <p className="text-gray-300 text-sm">Transaction timeout set to 24 hours for security.</p>
+                  <p className="text-gray-500 text-xs mt-1">Posted 1 hour ago</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
+              <h2 className="text-xl font-bold text-white mb-4">Additional Info</h2>
+              <div className="space-y-3 text-sm">
+                <div className="flex items-start space-x-2">
+                  <AlertCircle className="w-4 h-4 text-yellow-500 mt-0.5 flex-shrink-0" />
+                  <p className="text-gray-300">This is a non-custodial atomic swap. No intermediaries involved.</p>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <Lock className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                  <p className="text-gray-300">Funds are secured by smart contracts with hash time-locked contracts (HTLC).</p>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <Download className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                  <p className="text-gray-300">Transaction details can be downloaded as PDF for your records.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Central Section - Transaction Flow */}
+          <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
+            <h2 className="text-xl font-bold text-white mb-6">Transaction Flow</h2>
+            <div className="space-y-6">
+              {steps.map((step, index) => (
+                <div key={step.id} className="relative">
+                  <div className="flex items-start space-x-4">
+                    <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
+                      step.id <= currentStep 
+                        ? 'bg-gradient-to-r from-purple-500 to-pink-500' 
+                        : 'bg-gray-600'
+                    }`}>
+                      {step.id < currentStep ? (
+                        <CheckCircle className="w-5 h-5 text-white" />
+                      ) : step.id === currentStep && isProcessing ? (
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      ) : (
+                        <span className="text-white font-bold text-sm">{step.id}</span>
+                      )}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className={`font-semibold ${step.id <= currentStep ? 'text-white' : 'text-gray-400'}`}>
+                        {step.title}
+                      </h3>
+                      <p className={`text-sm ${step.id <= currentStep ? 'text-gray-300' : 'text-gray-500'}`}>
+                        {step.description}
+                      </p>
+                      {step.id === currentStep && (
+                        <button
+                          onClick={() => handleExecuteStep(step.id)}
+                          disabled={isProcessing}
+                          className={`mt-3 px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+                            isProcessing
+                              ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                              : 'bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600'
+                          }`}
+                        >
+                          {isProcessing ? 'Processing...' : step.id === 4 ? 'Complete Transaction' : 'Execute Step'}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                  {index < steps.length - 1 && (
+                    <div className={`absolute left-4 top-8 w-0.5 h-6 ${
+                      step.id < currentStep ? 'bg-gradient-to-b from-purple-500 to-pink-500' : 'bg-gray-600'
+                    }`}></div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 p-4 bg-white/5 rounded-lg border border-white/10">
+              <h3 className="font-semibold text-white mb-2">Security Information</h3>
+              <p className="text-sm text-gray-300">
+                This atomic swap uses HTLC technology to ensure secure fund exchange. 
+                No party can steal funds, and transactions are irreversible once confirmed.
+              </p>
+            </div>
+          </div>
+
+          {/* Right Section - Chat with Users and Files */}
+          <div className="space-y-6">
+            {/* Connected Users */}
+            <div className="bg-white/10 backdrop-blur-md rounded-xl border border-white/20">
+              <div className="p-4 border-b border-white/20">
+                <h3 className="font-bold text-white">Connected Users</h3>
+              </div>
+              <div className="p-4 space-y-3">
+                {connectedUsers.map((user) => (
+                  <div
+                    key={user.id}
+                    className="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/5 cursor-pointer transition-colors"
+                  >
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${
+                      user.status === 'online' ? 'bg-green-500' :
+                      user.status === 'bot' ? 'bg-blue-500' :
+                      'bg-yellow-500'
+                    } text-white`}>
+                      {user.avatar}
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-white text-sm font-medium">{user.name}</p>
+                      <p className={`text-xs ${
+                        user.status === 'online' ? 'text-green-400' :
+                        user.status === 'bot' ? 'text-blue-400' :
+                        'text-yellow-400'
+                      }`}>
+                        {user.status === 'online' ? 'Online' :
+                         user.status === 'bot' ? 'Bot' :
+                         'Away'}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Chat Window */}
+            <div className="bg-white/10 backdrop-blur-md rounded-xl border border-white/20 flex flex-col">
+              <div className="p-4 border-b border-white/20">
+                <h3 className="font-bold text-white flex items-center">
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Transaction Chat
+                </h3>
+              </div>
+              
+              <div className="flex-1 p-4 space-y-4 overflow-y-auto max-h-64">
+                {chatMessages.map((msg) => (
+                  <div
+                    key={msg.id}
+                    className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                  >
+                    <div className={`max-w-xs px-3 py-2 rounded-lg ${
+                      msg.sender === 'user'
+                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
+                        : msg.sender === 'bot'
+                        ? 'bg-blue-500 text-white'
+                        : 'bg-white/10 text-gray-300'
+                    }`}>
+                      <div className="flex items-center mb-1">
+                        {msg.sender === 'user' ? (
+                          <User className="w-3 h-3 mr-1" />
+                        ) : msg.sender === 'bot' ? (
+                          <Bot className="w-3 h-3 mr-1" />
+                        ) : (
+                          <Send className="w-3 h-3 mr-1" />
+                        )}
+                        <span className="text-xs font-medium">
+                          {msg.sender === 'user' ? 'You' : msg.sender === 'bot' ? 'SwapBot' : 'System'}
+                        </span>
+                      </div>
+                      <p className="text-sm">{msg.message}</p>
+                      <p className="text-xs opacity-70 mt-1">{msg.timestamp}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="p-4 border-t border-white/20">
+                <div className="flex space-x-2">
+                  <input
+                    type="text"
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                    placeholder="Type your message..."
+                    className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  />
+                  <button
+                    onClick={handleSendMessage}
+                    className="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-2 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
+                  >
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Attached Files */}
+            <div className="bg-white/10 backdrop-blur-md rounded-xl border border-white/20">
+              <div className="p-4 border-b border-white/20">
+                <h3 className="font-bold text-white">Attached Files</h3>
+              </div>
+              <div className="p-4 space-y-3">
+                {attachedFiles.map((file) => (
+                  <div
+                    key={file.id}
+                    className="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/5 cursor-pointer transition-colors"
+                  >
+                    <div className="flex-shrink-0">
+                      {getFileIcon(file.type)}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-white text-sm font-medium truncate">{file.name}</p>
+                      <p className="text-gray-400 text-xs">{file.size}</p>
+                    </div>
+                    <Download className="w-4 h-4 text-gray-400 hover:text-white transition-colors" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default App;

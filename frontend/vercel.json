@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "name": "deskrow-frontend",
+  "framework": "nextjs",
+  "public": true,
+  "github": {
+    "enabled": true
+  }
+}
